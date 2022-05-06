@@ -1,12 +1,13 @@
 const { getFiles } = require("../util/functions")
 
+
 module.exports = (bot, reload) => {
     const {client} = bot
 
     let events = getFiles("./events/", ".js")
 
-    if (events.length === 0) {
-        console.log("no event to load")
+    if (events.legnth === 0){
+        console.log("No events to load")
     }
 
     events.forEach((f, i) => {
@@ -23,28 +24,32 @@ module.exports = (bot, reload) => {
         initEvents(bot)
 }
 
-function triggerEventHandler(bot, event, ...args) {
-    const {client} = bot
+function triggerEventHandler(bot, event, ...args){
+    const {client} = bot 
 
     try {
-        if (client.events.has(event)) 
+        if (client.events.has(event))
             client.events.get(event).run(bot, ...args)
-        else
-            throw new Error(`Event ${event} doesn't exist`)
+        else 
+            throw new Error(`Event ${event} does not exist`)
     }
     catch(err){
         console.error(err)
     }
-
 }
 
 function initEvents(bot) {
-    const {client} = bot
+    const {client} = bot 
 
     client.on("ready", () => {
         triggerEventHandler(bot, "ready")
     })
+
     client.on("messageCreate", (message) => {
         triggerEventHandler(bot, "messageCreate", message)
+    })
+
+    client.on("interactionCreate", (interaction) => {
+        triggerEventHandler(bot, "interactionCreate", interaction)
     })
 }

@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "canvas": "^2.9.1",
+    "discord-buttons": "^4.0.0-deprecated",
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0"
   }
