@@ -11,15 +11,48 @@ const client = new Discord.Client({
     ]
 })
 
-client.on("ready", () => {
-    console.log(`Logged in as ${client.user.tag}`)
-})
 
-client.on("messageCreate", (message) => {
-    if (message.content == "maya"){
-        message.reply("Maya Debora Limbong")
-    }
-})
+let bot = {
+    client,
+    prefix: "mdl.",
+    owners: ["971852433418485830"]
+}
+
+client.commands = new Discord.Collection()
+client.events = new Discord.Collection()
+
+client.loadEvents = (bot, reload) => require("./handlers/events")(bot, reload)
+client.loadCommands = (bot, reload) => require("./handlers/commands")(bot, reload)
+
+client.loadEvents(bot, false)
+client.loadCommands(bot, false)
+
+module.exports = bot
+
+
+
+
+
+
+
+
+
+
+
+
+
+// client.on("ready", () => {
+//     console.log(`Logged in as ${client.user.tag}`)
+// })
+
+// client.on("messageCreate", (message) => {
+//     if (message.content == "maya"){
+//         message.reply("Maya Debora Limbong")
+//     }
+// })
+
+
+// WELCOMING MESSAGE
 
 const welcomeChannelId = "971849887979307077"
 
